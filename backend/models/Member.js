@@ -123,8 +123,19 @@ const regularMemberSchema = new mongoose.Schema({
 });
 
 module.exports = {
-  AssociateMember:    mongoose.model('AssociateMember', associateMemberSchema),
-  InstitutionalMember: mongoose.model('InstitutionalMember', institutionalMemberSchema),
-  LifeMember:         mongoose.model('LifeMember', lifeMemberSchema),
-  RegularMember:      mongoose.model('RegularMember', regularMemberSchema),
+  AssociateMember:
+    mongoose.models.AssociateMember ||
+    mongoose.model("AssociateMember", associateMemberSchema),
+
+  InstitutionalMember:
+    mongoose.models.InstitutionalMember ||
+    mongoose.model("InstitutionalMember", institutionalMemberSchema),
+
+  LifeMember:
+    mongoose.models.LifeMember ||
+    mongoose.model("LifeMember", lifeMemberSchema),
+
+  RegularMember:
+    mongoose.models.RegularMember ||
+    mongoose.model("RegularMember", regularMemberSchema),
 };
