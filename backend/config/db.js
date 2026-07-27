@@ -15,7 +15,7 @@ async function connectDB() {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(process.env.MONGODB_URI, {
+    cached.promise = mongoose.connect(process.env.MONGODB_URL, {
       bufferCommands: false,
     });
   }
