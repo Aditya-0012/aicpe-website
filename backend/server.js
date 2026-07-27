@@ -82,3 +82,22 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+console.log("Loading server.js");
+
+connectDB().then(() => {
+  console.log("Database connected");
+}).catch((err) => {
+  console.error("Database error:", err);
+});
+
+app.get("/api/health", (req, res) => {
+  console.log("Health route reached");
+
+  res.status(200).json({
+    success: true,
+    message: "AICPE API Running",
+    timestamp: new Date(),
+  });
+
+  console.log("Health response sent");
+});
