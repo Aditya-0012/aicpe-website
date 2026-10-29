@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="CareerPilot — a focused workspace to track applications, analyze job descriptions, and prepare for interviews.">
+  <title>CareerPilot — Your career command center</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard" aria-label="CareerPilot home">
+        <span class="brand-mark">✦</span><span>career<span class="brand-light">pilot</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span>◫</span> Overview</button>
+        <button class="nav-item" data-view="applications"><span>▤</span> Applications <span id="nav-count" class="nav-count">0</span></button>
+        <button class="nav-item" data-view="matcher"><span>⌁</span> Job match</button>
+        <button class="nav-item" data-view="interview"><span>✳</span> Interview prep</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="tip-card">
+          <span class="tip-icon">✦</span>
+          <p class="tip-title">Small steps. Big moves.</p>
+          <p class="tip-copy">Your next opportunity starts with one focused action.</p>
+        </div>
+        <div class="user-row"><div class="avatar">AT</div><div><strong>Aditya Tripathi</strong><small>Career workspace</small></div><span class="user-dots">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong id="breadcrumb-current">Overview</strong></div>
+        <div class="top-actions"><span class="local-badge"><i></i> Saved locally</span><button class="icon-btn" id="export-btn" title="Export your data" aria-label="Export your data">↗</button></div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="page-heading">
+          <div><p class="eyebrow">YOUR CAREER, IN MOTION</p><h1>Make your next move <span class="gradient-text">count.</span></h1><p class="muted">A little progress every day adds up. Here's your current momentum.</p></div>
+          <button class="primary-btn" data-go="applications">＋ Add application</button>
+        </div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-top"><span class="stat-label">Applications tracked</span><span class="stat-icon violet">▤</span></div><div class="stat-value" id="stat-total">0</div><div class="stat-foot"><span class="stat-neutral">Your pipeline</span></div></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label">Interviews</span><span class="stat-icon blue">✳</span></div><div class="stat-value" id="stat-interviews">0</div><div class="stat-foot"><span class="stat-neutral">Keep preparing</span></div></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label">Offers received</span><span class="stat-icon green">↗</span></div><div class="stat-value" id="stat-offers">0</div><div class="stat-foot"><span class="stat-neutral">Every step counts</span></div></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label">Profile readiness</span><span class="stat-icon amber">◎</span></div><div class="stat-value"><span id="stat-readiness">0</span><small>%</small></div><div class="progress-track"><span id="readiness-bar"></span></div></article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel pipeline-panel">
+            <div class="panel-heading"><div><h2>Application pipeline</h2><p class="muted">Stay on top of every opportunity.</p></div><button class="text-btn" data-go="applications">View all <span>→</span></button></div>
+            <div class="pipeline-bars" id="pipeline-bars"></div>
+            <div class="legend"><span><i class="dot applied"></i>Applied</span><span><i class="dot interview"></i>Interview</span><span><i class="dot offer"></i>Offer</span><span><i class="dot rejected"></i>Closed</span></div>
+          </section>
+          <section class="panel focus-panel">
+            <div class="panel-heading"><div><h2>Today's focus</h2><p class="muted">Choose one thing to move forward.</p></div><span class="sparkle">✦</span></div>
+            <div class="focus-list">
+              <label class="focus-item"><input type="checkbox" data-task="resume"><span class="custom-check"></span><span><strong>Polish one resume bullet</strong><small>Make impact measurable</small></span></label>
+              <label class="focus-item"><input type="checkbox" data-task="practice"><span class="custom-check"></span><span><strong>Practice one interview answer</strong><small>Use the STAR framework</small></span></label>
+              <label class="focus-item"><input type="checkbox" data-task="apply"><span class="custom-check"></span><span><strong>Find one relevant role</strong><small>Quality over quantity</small></span></label>
+            </div>
+            <div class="focus-footer"><span id="focus-progress">0 of 3 complete</span><div class="mini-progress"><span id="focus-bar"></span></div></div>
+          </section>
+        </div>
+
+        <section class="panel recent-panel">
+          <div class="panel-heading"><div><h2>Recent applications</h2><p class="muted">Your latest opportunities at a glance.</p></div><button class="text-btn" data-go="applications">Manage applications →</button></div>
+          <div class="table-wrap"><table><thead><tr><th>COMPANY / ROLE</th><th>STATUS</th><th>DATE ADDED</th><th></th></tr></thead><tbody id="recent-table"></tbody></table></div>
+          <div id="empty-recent" class="empty-state"><div class="empty-illustration">↗</div><strong>Your next opportunity starts here</strong><p>Add your first application to start building momentum.</p><button class="primary-btn small" data-go="applications">Add your first role</button></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-applications">
+        <div class="page-heading"><div><p class="eyebrow">KEEP YOUR MOMENTUM</p><h1>Applications <span class="gradient-text">tracker.</span></h1><p class="muted">One clear view of every opportunity you're pursuing.</p></div><button class="primary-btn" id="open-app-form">＋ Add application</button></div>
+        <section class="panel form-panel hidden" id="application-form-panel">
+          <div class="panel-heading"><div><h2>Add an opportunity</h2><p class="muted">Keep the details simple; you can update them later.</p></div><button class="icon-btn" id="close-app-form" aria-label="Close form">×</button></div>
+          <form id="application-form" class="application-form">
+            <label>Company name<input name="company" required maxlength="80" placeholder="e.g. Atlassian"></label>
+            <label>Role title<input name="role" required maxlength="100" placeholder="e.g. Software Engineer Intern"></label>
+            <label>Status<select name="status"><option value="Applied">Applied</option><option value="Interview">Interview</option><option value="Offer">Offer</option><option value="Rejected">Closed</option></select></label>
+            <label>Application date<input name="date" type="date" required></label>
+            <label class="full-field">Job link (optional)<input name="link" type="url" placeholder="https://…"></label>
+            <label class="full-field">Notes (optional)<textarea name="notes" rows="2" maxlength="500" placeholder="Referral, next steps, interview date…"></textarea></label>
+            <div class="form-actions"><button class="secondary-btn" type="button" id="cancel-app-form">Cancel</button><button class="primary-btn" type="submit">Save application</button></div>
+          </form>
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>All opportunities</h2><p class="muted">Update the status as you make progress.</p></div><select id="status-filter" class="filter-select" aria-label="Filter by status"><option value="All">All statuses</option><option>Applied</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></div>
+          <div class="table-wrap"><table><thead><tr><th>COMPANY / ROLE</th><th>STATUS</th><th>DATE ADDED</th><th>NOTES</th><th>ACTION</th></tr></thead><tbody id="applications-table"></tbody></table></div>
+          <div id="empty-applications" class="empty-state"><div class="empty-illustration">▤</div><strong>No applications yet</strong><p>Add a role you're interested in and start tracking your progress.</p><button class="primary-btn small" id="empty-add">Add an application</button></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-matcher">
+        <div class="page-heading"><div><p class="eyebrow">MAKE EVERY APPLICATION COUNT</p><h1>Job <span class="gradient-text">match.</span></h1><p class="muted">Compare your skills with a job description and find what to highlight.</p></div><span class="pill">Local analysis · No API key</span></div>
+        <div class="matcher-grid">
+          <section class="panel matcher-input"><div class="panel-heading"><div><h2>Paste a job description</h2><p class="muted">Include responsibilities and required skills for a better comparison.</p></div></div>
+            <label class="field-label" for="job-description">JOB DESCRIPTION</label><textarea id="job-description" class="job-textarea" placeholder="We're looking for a software engineering intern with experience in JavaScript, React, Node.js, SQL, Git, and problem-solving…"></textarea>
+            <label class="field-label" for="my-skills">YOUR SKILLS</label><textarea id="my-skills" class="skills-textarea" placeholder="C++, Python, JavaScript, React, Node.js, SQL, Git, data structures, communication…">C++, Python, JavaScript, React, Node.js, SQL, Git, data structures, communication</textarea>
+            <button class="primary-btn full-width" id="analyze-btn">✦ Analyze my match</button><p class="privacy-note">Your text stays in this browser. This is a keyword-based estimate, not an AI hiring decision.</p>
+          </section>
+          <section class="panel match-results" id="match-results"><div class="results-placeholder"><div class="orbit">✦</div><h2>Your match insights will appear here</h2><p>Paste a role and analyze it to see matched skills, missing keywords, and practical next steps.</p></div></section>
+        </div>
+      </section>
+
+      <section class="view" id="view-interview">
+        <div class="page-heading"><div><p class="eyebrow">SHOW UP WITH CONFIDENCE</p><h1>Interview <span class="gradient-text">prep.</span></h1><p class="muted">Practice clear, structured answers — one question at a time.</p></div><span class="pill">Practice mode</span></div>
+        <section class="panel interview-panel">
+          <div class="question-top"><span class="question-count" id="question-count">QUESTION 01 / 08</span><span class="question-category" id="question-category">BEHAVIOURAL</span></div>
+          <h2 id="question-text">Tell me about a project you are proud of.</h2>
+          <p class="muted" id="question-hint">Explain the problem, your contribution, the decisions you made, and the result.</p>
+          <div class="answer-structure"><div><span class="structure-letter">S</span><strong>Situation</strong><small>What was the context?</small></div><div><span class="structure-letter">T</span><strong>Task</strong><small>What was your responsibility?</small></div><div><span class="structure-letter">A</span><strong>Action</strong><small>What did you do?</small></div><div><span class="structure-letter">R</span><strong>Result</strong><small>What changed or improved?</small></div></div>
+          <label class="field-label" for="answer-notes">YOUR PRACTICE NOTES</label><textarea id="answer-notes" class="answer-textarea" placeholder="Draft your answer here. Use specific details and measurable outcomes where possible…"></textarea>
+          <div class="interview-actions"><span class="muted">Your notes are saved in this browser.</span><div><button class="secondary-btn" id="prev-question">← Previous</button> <button class="primary-btn" id="next-question">Next question →</button></div></div>
+        </section>
+      </section>
+
+      <footer class="app-footer"><span>✦ CareerPilot</span><span>Build skills. Track progress. Take the next step.</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
